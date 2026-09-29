@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina Velas — Velas artesanales</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #1a1613;
+    --bg-soft: #241f1a;
+    --card: #2b251f;
+    --text: #f2ead9;
+    --muted: #b8a98f;
+    --accent: #e8a15c;
+    --accent-soft: #c98a4b;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 6%;
+    position: sticky;
+    top: 0;
+    background: rgba(26, 22, 19, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    border-bottom: 1px solid #3a332b;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse at center, #33291f 0%, var(--bg) 70%);
+  }
+
+  .hero h1 {
+    font-size: 3.4rem;
+    max-width: 800px;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 1.2rem;
+    max-width: 550px;
+    margin-bottom: 2.2rem;
+  }
+
+  .btn {
+    background: var(--accent);
+    color: #1a1613;
+    padding: 0.9rem 2.4rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn:hover { background: var(--accent-soft); transform: translateY(-2px); }
+
+  /* ---------- Flama animada ---------- */
+  .flame {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: flicker 2s infinite ease-in-out;
+  }
+
+  @keyframes flicker {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    25% { transform: scale(1.05) rotate(-2deg); opacity: 0.9; }
+    50% { transform: scale(0.97); opacity: 1; }
+    75% { transform: scale(1.03) rotate(2deg); opacity: 0.92; }
+  }
+
+  /* ---------- Secciones ---------- */
+  section { padding: 4.5rem 6%; }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--text);
+  }
+
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  /* ---------- Productos ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #3a332b;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .card .img {
+    height: 230px;
+    overflow: hidden;
+  }
+
+  .card .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card .body { padding: 1.4rem; }
+
+  .card h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+
+  .card .desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+  .card .price { color: var(--accent); font-size: 1.25rem; font-weight: bold; }
+
+  /* ---------- Beneficios ---------- */
+  .benefits {
+    background: var(--bg-soft);
+  }
+
+  .benefits .grid { max-width: 900px; }
+
+  .benefit {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .benefit .icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .benefit h3 { color: var(--accent); margin-bottom: 0.5rem; }
+  .benefit p { color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- Contacto ---------- */
+  .contact form {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact input, .contact textarea {
+    background: var(--card);
+    border: 1px solid #3a332b;
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+  }
+
+  .contact input:focus, .contact textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    border-top: 1px solid #3a332b;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2.2rem; }
+    nav a { margin-left: 1rem; font-size: 0.9rem; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+  <header>
+    <div class="logo">🕯️ Lumina</div>
+    <nav>
+      <a href="#productos">Productos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="flame">🔥</div>
+    <h1>Ilumina tus momentos con <span>velas artesanales</span></h1>
+    <p>Velas de cera de soya 100% natural, con aromas que transforman cualquier espacio en un refugio de calma.</p>
+    <a href="#productos" class="btn">Ver colección</a>
+  </section>
+
+  <section id="productos">
+    <h2 class="section-title">Nuestra colección</h2>
+    <p class="section-sub">Cada vela es hecha a mano en pequeños lotes.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="img"><img src="vainilla_ambar.png" alt="Vela Vainilla y Ámbar"></div>
+        <div class="body">
+          <h3>Vainilla & Ámbar</h3>
+          <p class="desc">Cálida y dulce, perfecta para noches de relax.</p>
+          <p class="price">$12.99</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img"><img src="lavanda_serena.png" alt="Vela Lavanda Serena"></div>
+        <div class="body">
+          <h3>Lavanda Serena</h3>
+          <p class="desc">Aroma floral que calma la mente y el cuerpo.</p>
+          <p class="price">$11.99</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img"><img src="rosa_sandalo.png" alt="Vela Rosa y Sándalo"></div>
+        <div class="body">
+          <h3>Rosa & Sándalo</h3>
+          <p class="desc">Elegante y terroso, ideal para regalar.</p>
+          <p class="price">$14.99</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img"><img src="brisa_marina.png" alt="Vela Brisa Marina"></div>
+        <div class="body">
+          <h3>Brisa Marina</h3>
+          <p class="desc">Fresca y ligera, como un día en la playa.</p>
+          <p class="price">$13.49</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits" id="nosotros">
+    <h2 class="section-title">¿Por qué Lumina?</h2>
+    <p class="section-sub">Cuidamos cada detalle, de la mecha al aroma.</p>
+    <div class="grid">
+      <div class="benefit">
+        <div class="icon">🌱</div>
+        <h3>100% Natural</h3>
+        <p>Cera de soya y aceites esenciales, sin químicos agresivos.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon">✋</div>
+        <h3>Hecho a mano</h3>
+        <p>Producción artesanal en pequeños lotes para máxima calidad.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon">⏳</div>
+        <h3>Larga duración</h3>
+        <p>Hasta 45 horas de combustión limpia y uniforme.</p>
+      </div>
+      <div class="benefit">
+        <div class="icon">📦</div>
+        <h3>Envío cuidadoso</h3>
+        <p>Empaque protector y ecológico en cada pedido.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <h2 class="section-title">Contáctanos</h2>
+    <p class="section-sub">¿Pedidos personalizados o mayoristas? Escríbenos.</p>
+    <form>
+      <input type="text" placeholder="Tu nombre" required>
+      <input type="email" placeholder="Tu correo" required>
+      <textarea rows="4" placeholder="Tu mensaje" required></textarea>
+      <button type="submit" class="btn">Enviar mensaje</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>🕯️ Lumina Velas © 2026 — Hechas con amor y luz.</p>
+  </footer>
+
+</body>
+</html>
