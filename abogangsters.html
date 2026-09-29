@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NG&ASOCIADOS | Arquitectura de Soberanía Creativa</title>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #111111;
+            --accent-gold: #e6c687;
+            --accent-yellow: #f1c40f;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-color: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* --- Header / Nav --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 8, 8, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .tagline {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-main);
+        }
+
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 40px 60px;
+            position: relative;
+            background: radial-gradient(circle at 50% 30%, #1a1a14 0%, var(--bg-color) 70%);
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 9vw, 8.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 15px;
+        }
+
+        .hero-tags {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border: 1px solid var(--accent-gold);
+            background: transparent;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            width: fit-content;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+
+        /* --- Riesgos Section --- */
+        .riesgos {
+            padding: 100px 40px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+
+        .card-number {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 40px;
+            right: 30px;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .card-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-top: 40px;
+        }
+
+        /* --- Servicios Section --- */
+        .servicios {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .section-tag {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            max-width: 400px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Accordion */
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .accordion-title-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .accordion-num {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+        }
+
+        .accordion-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .accordion-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            background: var(--accent-gold);
+            color: #000;
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 0 0;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 600px;
+            padding: 20px 0 40px 0;
+        }
+
+        .accordion-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+        }
+
+        .accordion-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .accordion-details p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .accordion-details ul {
+            list-style: none;
+        }
+
+        .accordion-details li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .accordion-details li::before {
+            content: '•';
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* --- Liderazgo Section --- */
+        .liderazgo {
+            padding: 100px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .liderazgo-img {
+            width: 100%;
+            border-radius: 8px;
+            filter: grayscale(100%);
+            transition: filter 0.5s;
+        }
+
+        .liderazgo-img:hover {
+            filter: grayscale(0%);
+        }
+
+        .liderazgo-info .section-tag {
+            margin-bottom: 5px;
+        }
+
+        .liderazgo-name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .liderazgo-role {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .liderazgo-bio {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+        }
+
+        .stat-item h4 {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* --- Contacto Section --- */
+        .contacto {
+            padding: 100px 40px;
+        }
+
+        .contacto-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            color: var(--text-main);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .info-card-icon {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+
+        .info-card-label {
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .info-card-value {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Floating WhatsApp Widget */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-yellow);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 900px) {
+            nav ul {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .section-desc {
+                text-align: left;
+            }
+
+            .accordion-content {
+                grid-template-columns: 1fr;
+            }
+
+            .liderazgo {
+                grid-template-columns: 1fr;
+            }
+
+            .contacto-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">NG<span>&ASOCIADOS</span></div>
+            <div class="tagline">Arquitectura de Soberanía Creativa</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#riesgos">Riesgos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#liderazgo">Liderazgo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <h1 class="hero-title">
+            <span>CREA.</span>
+            <span>REGISTRA.</span>
+            <span>PROTEGE.</span>
+        </h1>
+        <p class="hero-subtitle">Protección legal especializada para la industria creativa.</p>
+        <p class="hero-tags">ARTISTAS · DISEÑADORES · MÚSICOS</p>
+        <a href="#contacto" class="btn-primary">
+            Agenda tu asesoría <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <div class="scroll-down">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Riesgos Section -->
+    <section id="riesgos" class="riesgos">
+        <div class="cards-grid">
+            <div class="card">
+                <span class="card-number">01</span>
+                <i class="fa-solid fa-triangle-exclamation card-icon"></i>
+                <p class="card-text">Subir tu obra a internet no significa que esté protegida.</p>
+            </div>
+            <div class="card">
+                <span class="card-number">02</span>
+                <i class="fa-solid fa-triangle-exclamation card-icon"></i>
+                <p class="card-text">Errores al ignorar los derechos de autor que pueden costarte miles de pesos.</p>
+            </div>
+            <div class="card">
+                <span class="card-number">03</span>
+                <i class="fa-solid fa-triangle-exclamation card-icon"></i>
+                <p class="card-text">Tu marca y tu estilo pueden ser apropiados si no los blindas a tiempo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section id="servicios" class="servicios">
+        <div class="section-header">
+            <div>
+                <span class="section-tag">EL ESCUDO</span>
+                <h2 class="section-title">Servicios a medida.</h2>
+            </div>
+            <p class="section-desc">Una galería de protección legal de alta precisión, diseñada para la industria creativa.</p>
+        </div>
+
+        <div class="accordion">
+            <!-- Item 1 -->
+            <div class="accordion-item active">
+                <div class="accordion-header">
+                    <div class="accordion-title-box">
+                        <span class="accordion-num">01</span>
+                        <h3 class="accordion-title">Derecho de Autor & Registro de Obra</h3>
+                    </div>
+                    <div class="accordion-icon"><i class="fa-solid fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="Musica" class="accordion-img">
+                    <div class="accordion-details">
+                        <p>Protección de obras musicales, artísticas y de diseño. Registro, depósito y titularidad.</p>
+                        <ul>
+                            <li>Registro de obra ante el Instituto Nacional del Derecho de Autor</li>
+                            <li>Protección de obras musicales, artísticas y de diseño</li>
+                            <li>Contratos de cesión, licencia y distribución</li>
+                            <li>Defensa frente a plagio y uso no autorizado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-box">
+                        <span class="accordion-num">02</span>
+                        <h3 class="accordion-title">Representación & Administración Legal</h3>
+                    </div>
+                    <div class="accordion-icon"><i class="fa-solid fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Representacion" class="accordion-img">
+                    <div class="accordion-details">
+                        <p>Liderado por Ana María Navarro — Representación y Administración.</p>
+                        <ul>
+                            <li>Representación legal de creadores y sellos</li>
+                            <li>Administración de catálogo y derechos patrimoniales</li>
+                            <li>Negociación de contratos editoriales y de gestión</li>
+                            <li>Estrategia frente a plataformas digitales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-box">
+                        <span class="accordion-num">03</span>
+                        <h3 class="accordion-title">Asesoría Estratégica & Formación para Creadores</h3>
+                    </div>
+                    <div class="accordion-icon"><i class="fa-solid fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="Asesoria" class="accordion-img">
+                    <div class="accordion-details">
+                        <p>Formación y acompañamiento para construir una carrera blindada legalmente.</p>
+                        <ul>
+                            <li>Sesiones de asesoría estratégica individual</li>
+                            <li>Talleres de propiedad intelectual para creadores</li>
+                            <li>Auditoría legal de proyectos y lanzamientos</li>
+                            <li>Plan de protección a largo plazo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-box">
+                        <span class="accordion-num">04</span>
+                        <h3 class="accordion-title">Propiedad Industrial</h3>
+                    </div>
+                    <div class="accordion-icon"><i class="fa-solid fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Propiedad Industrial" class="accordion-img">
+                    <div class="accordion-details">
+                        <p>Marcas, avisos comerciales y diseños industriales. Registro y oposición.</p>
+                        <ul>
+                            <li>Registro de marca ante el IMPI</li>
+                            <li>Búsqueda y análisis de anterioridades</li>
+                            <li>Defensa frente a oposiciones y nulidades</li>
+                            <li>Protección de identidad visual y naming</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Liderazgo Section -->
+    <section id="liderazgo" class="liderazgo">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Ana María Navarro" class="liderazgo-img">
+        <div class="liderazgo-info">
+            <span class="section-tag">EL COMPACTO</span>
+            <h2 class="liderazgo-name">Ana María Navarro</h2>
+            <div class="liderazgo-role">REPRESENTANTE & ADMINISTRACIÓN</div>
+            <p class="liderazgo-bio">
+                Al frente de NG&ASOCIADOS, Ana María Navarro encarna la figura del guardián: precisión jurídica con sensibilidad creativa. Su práctica une el rigor del derecho de autor con una comprensión profunda del ecosistema artístico.
+                Con un enfoque colectivo y una relación cercana con cada creador, construye estrategias de protección a largo plazo — no solo defiende obras, archiva su legado.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>+15</h4>
+                    <p>AÑOS DE PRÁCTICA</p>
+                </div>
+                <div class="stat-item">
+                    <h4>100%</h4>
+                    <p>ENFOQUE CREATIVO</p>
+                </div>
+                <div class="stat-item">
+                    <h4>CDMX</h4>
+                    <p>SEDE ESTRATÉGICA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section id="contacto" class="contacto">
+        <h2 class="contacto-title">Asegura tu propiedad intelectual hoy.</h2>
+        <div class="contacto-grid">
+            <form onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="nombre">NOMBRE</label>
+                    <input type="text" id="nombre" placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label for="area">ÁREA CREATIVA</label>
+                    <select id="area">
+                        <option value="" disabled selected>Selecciona</option>
+                        <option value="musica">Música</option>
+                        <option value="diseno">Diseño & Arte Visual</option>
+                        <option value="literatura">Literatura & Editorial</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">EMAIL</label>
+                    <input type="email" id="email" placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">TELÉFONO</label>
+                    <input type="tel" id="telefono" placeholder="+52 ...">
+                </div>
+                <div class="form-group">
+                    <label for="detalles">DETALLES DEL PROYECTO</label>
+                    <textarea id="detalles" rows="4" placeholder="Cuéntanos sobre tu obra..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">
+                    Enviar Solicitud <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+
+            <div class="contacto-info">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fa-solid fa-phone info-card-icon"></i>
+                        <span class="info-card-label">TELÉFONO / WHATSAPP</span>
+                    </div>
+                    <div class="info-card-value">55 10 02 45 80</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fa-solid fa-location-dot info-card-icon"></i>
+                        <span class="info-card-label">DIRECCIÓN</span>
+                    </div>
+                    <div class="info-card-value">Praga 40, Juárez, Cuauhtémoc, 06600, CDMX</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="info-card-label">REDES</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Chat / WhatsApp -->
+    <a href="#" class="whatsapp-float">
+        <i class="fa-regular fa-comment-dots"></i>
+    </a>
+
+    <!-- JavaScript para Interactividad del Acordeón -->
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                
+                // Cerrar otros elementos
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+
+                // Toggle del elemento actual
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
